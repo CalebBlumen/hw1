@@ -11,13 +11,41 @@ the function below should be the only one in this file.
 */
 
 #include "split.h"
+#include <iostream>
+using namespace std;
 
 /* Add a prototype for a helper function here if you need */
+void addNode(Node*& in, Node*& target);
+
 
 void split(Node*& in, Node*& odds, Node*& evens)
 {
-  /* Add code here */
-// WRITE YOUR CODE HERE
+  if (in == nullptr) {
+    return;
+  }
+  else {
+    Node* temp = in->next;
+    if (in->value%2) {
+      addNode(in,odds);
+    }
+    else {
+      addNode(in,evens);
+    }
+    split(temp, odds, evens);
+  }
+  in = nullptr;
 }
 
 /* If you needed a helper function, write it here */
+void addNode(Node*& in, Node*& target) {
+  in->next = nullptr;
+  if (target == nullptr) {
+    target = in;
+    return;
+  }
+  if (target->next == nullptr) {
+    target->next = in;
+    return;
+  }
+  addNode(in,target->next);
+}
