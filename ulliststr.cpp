@@ -26,18 +26,20 @@ size_t ULListStr::size() const
 
 // WRITE YOUR CODE HERE
 void ULListStr::push_back(const std::string& val) {
+  // If there is no list, create one
   if (empty()) {
     Item* newItem = new Item;
     newItem->val[0] = val;
     newItem->last = 1;
     head_ = newItem;
     tail_ = newItem;
-    
   }
+  // If we will not be overflowing the array, we don't need to add a new Item
   else if (ARRSIZE - tail_->last) {
     tail_->val[tail_->last] = val;
     tail_->last++;
   }
+  // If adding to the list will occupy the ARRSIZE element of the array, we need a new item
   else {
     Item* newItem = new Item;
     newItem->val[0] = val;
@@ -49,6 +51,7 @@ void ULListStr::push_back(const std::string& val) {
   size_++;
 }
 void ULListStr::push_front(const std::string& val) {
+  // Same logic as push_back()
   if (empty()) {
     Item* newItem = new Item;
     newItem->val[0] = val;
@@ -73,17 +76,21 @@ void ULListStr::push_front(const std::string& val) {
   size_++;
 }
 void ULListStr::pop_back() {
+  // If there is nothing ot delete, don't do anything
   if (empty()) {
     return;
   }
+  // We need to delete the list if we are removing the last element
   else if (size_ == 1) {
     clear();
     return;
   }
+  // If we won't be deleting the last element of an Item, we just delete the current last index
   else if (tail_->last > 1) {
     tail_->val[tail_->last-1] = "";
     tail_->last--;
   }
+  // If the deletion causes an Item's array to be empty, delete the Item
   else {
     Item* temp = tail_;
     tail_ = tail_->prev;
@@ -93,6 +100,7 @@ void ULListStr::pop_back() {
   size_--;
 }
 void ULListStr::pop_front() {
+  // Same logic as pop_back()
   if (empty()) {
     return;
   }
@@ -118,9 +126,11 @@ std::string const & ULListStr::front() const {
   return head_->val[head_->first];
 }
 std::string* ULListStr::getValAtLoc(size_t loc) const {
+  // Check for invalid index
   if (loc > size_-1 || loc < 0) {
     return NULL;
   }
+  // Calculate which Item the element resides on, and which index of that Item
   Item* temp = head_;
   int numNext;
   int backfill;
@@ -133,6 +143,7 @@ std::string* ULListStr::getValAtLoc(size_t loc) const {
     numNext = 0;
     backfill = head_->first + loc;
   }
+  // Iterate to the appropriate Item and return the appropriate index
   for (int i = 0; i < numNext; ++i) {
     temp = temp->next;
   }

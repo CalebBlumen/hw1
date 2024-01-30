@@ -20,9 +20,11 @@ void addNode(Node*& in, Node*& target);
 
 void split(Node*& in, Node*& odds, Node*& evens)
 {
+  // Base case
   if (in == nullptr) {
     return;
   }
+  // Recursive case
   else {
     Node* temp = in->next;
     if (in->value%2) {
@@ -39,13 +41,16 @@ void split(Node*& in, Node*& odds, Node*& evens)
 /* If you needed a helper function, write it here */
 void addNode(Node*& in, Node*& target) {
   in->next = nullptr;
+  // Base case 1
   if (target == nullptr) {
     target = in;
     return;
   }
+  // Base case 2
   if (target->next == nullptr) {
     target->next = in;
     return;
   }
+  // Recursive case
   addNode(in,target->next);
 }
