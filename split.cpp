@@ -11,7 +11,6 @@ the function below should be the only one in this file.
 */
 
 #include "split.h"
-#include <iostream>
 using namespace std;
 
 /* Add a prototype for a helper function here if you need */
